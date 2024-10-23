@@ -36,9 +36,7 @@ const SignInForm = function () {
     try {
       const { user } = await signInWithGooglePopup();
       await createUserDocumentFromAuth(user);
-      // Setting user to state
       setCurrentUser(user);
-      // Resetting the form fields
       resetFormFields();
     } catch (error) {
       if (error.code === "auth/popup-closed-by-user")

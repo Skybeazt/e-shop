@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { UserContext } from "./../../contexts/user.contexts.jsx";
+import { useState, useContext } from "react";
 
 import {
   signInWithGooglePopup,
@@ -18,6 +19,7 @@ const defaultFormValues = {
 const SignInForm = function () {
   const [formFields, setFormFields] = useState(defaultFormValues);
   const { email, password } = formFields;
+  const { setCurrentUser } = useContext(UserContext);
 
   const resetFormFields = () => setFormFields(defaultFormValues);
 
@@ -32,6 +34,7 @@ const SignInForm = function () {
     try {
       const { user } = await signInWithGooglePopup();
       await createUserDocumentFromAuth(user);
+      setCurrentUser(user);
       resetFormFields();
     } catch (error) {
       if (error.code === "auth/popup-closed-by-user")
@@ -44,12 +47,11 @@ const SignInForm = function () {
     e.preventDefault();
 
     try {
-      const response = await signInAuthUserWithEmailAndPassword(
+      const { user } = await signInAuthUserWithEmailAndPassword(
         email,
         password
       );
-      console.log(response);
-      // await createUserDocumentFromAuth(user, { email });
+      setCurrentUser(user);
       resetFormFields();
     } catch (error) {
       if (error.code === "auth/invalid-credential")

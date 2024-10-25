@@ -89,7 +89,6 @@ export const signInAuthUserWithEmailAndPassword = async function (
 ) {
   if (!email || !password) return;
   const res = await signInWithEmailAndPassword(auth, email, password);
-  console.log(res);
   return res;
 };
 

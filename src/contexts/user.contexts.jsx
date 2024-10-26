@@ -19,8 +19,6 @@ export const UserContextProvider = function ({ children }) {
         setCurrentUser(user);
         createUserDocumentFromAuth(user);
       } else setCurrentUser(null);
-
-      console.log(user);
     });
     return unsubscribe;
   }, []);

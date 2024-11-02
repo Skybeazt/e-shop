@@ -77,14 +77,17 @@ export const CartContextProvider = function ({ children }) {
     [cartItems]
   );
 
-  useEffect(function () {
-    const newCartTotalPrice = cartItems.reduce(
-      (accumulator, cartItem) =>
-        (accumulator += cartItem.quantity * cartItem.price),
-      0
-    );
-    setCartTotalPrice(newCartTotalPrice);
-  }, []);
+  useEffect(
+    function () {
+      const newCartTotalPrice = cartItems.reduce(
+        (accumulator, cartItem) =>
+          (accumulator += cartItem.quantity * cartItem.price),
+        0
+      );
+      setCartTotalPrice(newCartTotalPrice);
+    },
+    [cartItems]
+  );
 
   const value = {
     isCartOpen,

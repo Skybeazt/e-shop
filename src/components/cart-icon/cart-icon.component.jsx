@@ -8,11 +8,11 @@ import {
 } from "./cart-icon.styles.jsx";
 
 const CartIcon = function () {
-  const { isCartOpen, setIsCartOpen } = useContext(CartContext);
+  const { setIsCartOpen } = useContext(CartContext);
   const { cartCount } = useContext(CartContext);
 
   const toggleIsCartOpen = function () {
-    setIsCartOpen(!isCartOpen);
+    setIsCartOpen();
   };
 
   return (

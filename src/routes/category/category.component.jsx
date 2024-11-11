@@ -1,5 +1,6 @@
-import { useContext, useState, useEffect, Fragment } from "react";
-import { CategoriesContext } from "../../contexts/categories.context";
+import { useState, useEffect, Fragment } from "react";
+import { selectCategoriesMap } from "../../store/categories/category.selector.js";
+import { useSelector } from "react-redux";
 
 import { useParams } from "react-router-dom";
 
@@ -10,7 +11,7 @@ import { CategoryContainer, CategoryTitle } from "./category.styles.jsx";
 const Category = function () {
   const { category } = useParams();
 
-  const { categoriesMap } = useContext(CategoriesContext);
+  const categoriesMap = useSelector(selectCategoriesMap);
   const [products, setproducts] = useState(categoriesMap[category]);
 
   useEffect(
@@ -19,6 +20,7 @@ const Category = function () {
     },
     [category, categoriesMap]
   );
+
   return (
     <Fragment>
       <CategoryTitle>{category.toUpperCase()}</CategoryTitle>

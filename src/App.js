@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import {
   onAuthStateChangeListener,
   createUserDocumentFromAuth,
@@ -7,6 +6,7 @@ import {
 import { setCurrentUser } from "./store/user/user.action.js";
 import { useDispatch } from "react-redux";
 
+import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Home from "./routes/home/home.component.jsx";

@@ -1,5 +1,5 @@
-import { Fragment, useContext } from "react";
-import { CartContext } from "./../../contexts/cart.context.jsx";
+import { selectIsCartOpen } from "./../../store/cart/cart.selector.js";
+import { Fragment } from "react";
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -19,7 +19,7 @@ import {
 
 const Navigation = function () {
   const currentUser = useSelector(userSelector);
-  const { isCartOpen } = useContext(CartContext);
+  const isCartOpen = useSelector(selectIsCartOpen);
 
   const signOutHandler = async function () {
     await signOutUser();

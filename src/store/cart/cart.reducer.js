@@ -9,7 +9,7 @@ export const cartReducer = function (state = CART_INITIAL_STATE, action = {}) {
   const { type, payload } = action;
 
   switch (type) {
-    case CART_ACTION_TYPES.TOGGLE_CART_OPEN:
+    case CART_ACTION_TYPES.TOGGLE_CART_DROP_DOWN:
       return {
         ...state,
         isCartOpen: !state.isCartOpen,

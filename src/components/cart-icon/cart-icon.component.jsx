@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setIsCartOpen } from "./../../store/cart/cart.action.js";
+import { toggleCartDropDown } from "./../../store/cart/cart.action.js";
 import { selectCartCount } from "./../../store/cart/cart.selector.js";
 
 import {
@@ -13,7 +13,7 @@ const CartIcon = function () {
   const cartCount = useSelector(selectCartCount);
 
   const toggleIsCartOpen = function () {
-    dispatch(setIsCartOpen());
+    dispatch(toggleCartDropDown());
   };
 
   return (

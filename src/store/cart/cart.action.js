@@ -35,8 +35,8 @@ const clearCartItem = function (cartItems, cartItemToClear) {
   return cartItems.filter((cartItem) => cartItem.id !== cartItemToClear.id);
 };
 
-export const setIsCartOpen = function () {
-  return createAction(CART_ACTION_TYPES.TOGGLE_CART_OPEN);
+export const toggleCartDropDown = function () {
+  return createAction(CART_ACTION_TYPES.TOGGLE_CART_DROP_DOWN);
 };
 
 export const addItemToCart = function (cartItems, productToAdd) {

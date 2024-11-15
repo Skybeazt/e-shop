@@ -19,3 +19,10 @@ export const selectCategoriesMap = createSelector(
     }, {});
   }
 );
+
+export const selectCategoriesIsLoading = createSelector(
+  [selectCategoriesReducer],
+  function (categoriesSlice) {
+    return categoriesSlice.isLoading;
+  }
+);

@@ -1,10 +1,10 @@
 import { selectIsCartOpen } from "./../../store/cart/cart.selector.js";
 import { Fragment } from "react";
 import { Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { signOutUserStart } from "./../../store/user/user.action.js";
+import { useSelector, useDispatch } from "react-redux";
 
 import { userSelector } from "../../store/user/user.selector.js";
-import { signOutUser } from "./../../utils/firebase/firebase.utils.js";
 
 import CartIcon from "./../../components/cart-icon/cart-icon.component.jsx";
 import CartDropdown from "./../../components/cart-dropdown/cart-dropdown.component.jsx";
@@ -18,11 +18,12 @@ import {
 } from "./navigation.styles.jsx";
 
 const Navigation = function () {
+  const dispatch = useDispatch();
   const currentUser = useSelector(userSelector);
   const isCartOpen = useSelector(selectIsCartOpen);
 
   const signOutHandler = async function () {
-    await signOutUser();
+    dispatch(signOutUserStart());
   };
 
   return (

@@ -4,6 +4,9 @@ import {
   createUserDocumentFromAuth,
 } from "./../../utils/firebase/firebase.utils.js";
 
+import { signUpStart } from "./../../store/user/user.action.js";
+import { useDispatch } from "react-redux";
+
 import FormInput from "./../form-input/form-input.component.jsx";
 import Button from "./../button/button.component.jsx";
 
@@ -17,6 +20,7 @@ const defaultFormFields = {
 };
 
 const SignUpForm = function () {
+  const dispatch = useDispatch();
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
@@ -36,25 +40,13 @@ const SignUpForm = function () {
 
   const onSubmitHandler = async function (event) {
     event.preventDefault();
-    // const { email, password, confirmPassword } = formFields;
     if (password !== confirmPassword) {
       alert("Your password is not matching");
       return;
     }
 
-    try {
-      const { user } = await createAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
-
-      await createUserDocumentFromAuth(user, { displayName });
-      resetFormFields();
-    } catch (error) {
-      if (error.code === "auth/email-already-in-use")
-        alert("Cannot sign-up user, email already in used");
-      else console.log("User sign-up encounter an error, please try again");
-    }
+    dispatch(signUpStart(email, password, displayName));
+    resetFormFields();
   };
 
   return (
@@ -94,7 +86,6 @@ const SignUpForm = function () {
         />
 
         <Button type="submit"> Sign-up</Button>
-        {/* <button type="submit">Sign Up</button> */}
       </form>
     </SignUpContainer>
   );

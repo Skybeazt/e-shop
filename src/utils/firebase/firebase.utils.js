@@ -49,8 +49,6 @@ export const auth = getAuth();
 export const signInWithGooglePopup = () =>
   signInWithPopup(auth, googleAuthProvider);
 
-// export const signInWithEmailAndPassword = () => {};
-
 export const db = getFirestore();
 
 export const addCollectionAndDocuments = async function (
@@ -67,7 +65,6 @@ export const addCollectionAndDocuments = async function (
   });
 
   await batch.commit();
-  console.log("done");
 };
 
 export const getCollectionAndDocuments = async function () {
@@ -107,10 +104,7 @@ export const createUserDocumentFromAuth = async (
       console.error("error creating the user", error);
     }
   }
-
-  // if user does exists
-  // return users data
-  return userDocRef;
+  return userSnapShot;
 };
 
 export const createAuthUserWithEmailAndPassword = async function (
@@ -136,4 +130,19 @@ export const signOutUser = async function () {
 
 export const onAuthStateChangeListener = function (callback) {
   return onAuthStateChanged(auth, callback);
+};
+
+export const getCurrentUser = function () {
+  return new Promise(function (resolve, reject) {
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      function (userAuth) {
+        unsubscribe();
+        resolve(userAuth);
+      },
+      function (error) {
+        reject(error);
+      }
+    );
+  });
 };

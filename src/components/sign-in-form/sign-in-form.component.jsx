@@ -1,9 +1,10 @@
 import { useState } from "react";
 
 import {
-  signInWithGooglePopup,
-  signInAuthUserWithEmailAndPassword,
-} from "./../../utils/firebase/firebase.utils.js";
+  googleSignInStart,
+  emailSignInStart,
+} from "./../../store/user/user.action.js";
+import { useDispatch } from "react-redux";
 
 import FormInput from "./../form-input/form-input.component";
 import Button, { BUTTON_TYPE_CLASSES } from "./../button/button.component.jsx";
@@ -15,6 +16,7 @@ const defaultFormValues = {
 };
 
 const SignInForm = function () {
+  const dispatch = useDispatch();
   const [formFields, setFormFields] = useState(defaultFormValues);
   const { email, password } = formFields;
 
@@ -28,26 +30,15 @@ const SignInForm = function () {
   };
 
   const signInWithGoogleHandler = async function () {
-    try {
-      await signInWithGooglePopup();
-      resetFormFields();
-    } catch (error) {
-      if (error.code === "auth/popup-closed-by-user")
-        alert("Window popup closed");
-      else alert(error.message);
-    }
+    dispatch(googleSignInStart());
+    resetFormFields();
   };
 
   const onSubmitHandler = async function (e) {
     e.preventDefault();
 
-    try {
-      await signInAuthUserWithEmailAndPassword(email, password);
-      resetFormFields();
-    } catch (error) {
-      if (error.code === "auth/invalid-credential")
-        alert("Invalid username or password!");
-    }
+    dispatch(emailSignInStart(email, password));
+    resetFormFields();
   };
 
   return (

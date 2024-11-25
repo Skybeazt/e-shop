@@ -1,6 +1,8 @@
 import { store, persistor } from "./store/store.js";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
+import { stripePromise } from "./utils/stripe/stripe.utils.js";
+import { Elements } from "@stripe/react-stripe-js";
 
 import React from "react";
 import ReactDOM from "react-dom/client";
@@ -15,7 +17,9 @@ root.render(
     <Provider loading={null} store={store}>
       <PersistGate persistor={persistor}>
         <BrowserRouter>
-          <App />
+          <Elements stripe={stripePromise}>
+            <App />
+          </Elements>
         </BrowserRouter>
       </PersistGate>
     </Provider>
